@@ -1,0 +1,34 @@
+{
+  "lateral_area": {
+    "IsParaviewMetric": "no",
+    "resultFile": "results/case_{:d}/volAndLat.txt",
+    "delimiter": " ",
+    "DEXoutputFlag": "",
+    "locationInFile": "1"
+  },
+  "volume": {
+    "IsParaviewMetric": "no",
+    "resultFile": "results/case_{:d}/volAndLat.txt",
+    "delimiter": " ",
+    "DEXoutputFlag": "",
+    "locationInFile": "2",
+    "sense": "min",
+	  "weight": "1"
+  },
+  "total_area": {
+    "IsParaviewMetric": "no",
+    "resultFile": "results/case_{:d}/volAndLat.txt",
+    "delimiter": " ",
+    "DEXoutputFlag": "",
+    "locationInFile": "3",
+    "sense": "min",
+	  "weight": "1"
+  },
+  "cone": {
+    "image": "iso",
+    "bodyopacity": "0.8",
+    "bodycolor": "255,255,255",
+    "type": "Basic",
+    "extractStats": "false"
+  }
+}
