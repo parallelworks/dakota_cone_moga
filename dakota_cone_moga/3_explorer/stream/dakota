@@ -1,0 +1,1390 @@
+Starting to Stream...
+Running doe Analysis
+Running batch deamon
+
+Dakota version 6.5 released Dec  7 2016.
+Repository revision f928f89 (2016-11-10) built Dec  7 2016 15:24:52.
+Running serial Dakota executable in serial mode.
+Start time: Mon Sep  4 20:38:44 2017
+
+-----------------------
+Begin DAKOTA input file
+templatedir/doe.in
+-----------------------
+
+environment
+    	tabular_data
+        tabular_data_file = 'out.dat'
+#        freeform
+	custom_annotated header eval_id # no interface column
+        method_pointer = 'DACE'
+
+method
+ id_method = 'DACE'                              
+ model_pointer = 'DACE_M'     
+ sampling
+ sample_type lhs
+ seed = 52983
+ samples = 30
+
+model                                                 
+ id_model = 'DACE_M'                             
+ single                                                   
+ variables_pointer = 'V1' 
+ interface_pointer = 'I1'                     
+ responses_pointer = 'R1' 
+
+variables
+ id_variables = 'V1'
+ 
+ descriptors  'radius' 'height'
+ 
+ #discrete_design_set 
+ #real = 2
+ #num_set_values =  10 10
+ #set_values =  1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0
+ 
+ uniform_uncertain = 2
+ upper_bounds    10 10   
+ lower_bounds    1 1
+
+interface
+ id_interface = 'I1'  
+	fork
+	asynchronous 
+	  evaluation_concurrency = 10
+	  local_evaluation_scheduling dynamic 
+# When using work_directory, the analysis_drivers may be given by:
+# 1) an absolute path, 2) located in (or relative to) the startup directory alongside the Dakota input file, 3) in the list of template files linked or copied, 4) or on the $PATH (Path% on Windows).
+  	analysis_driver = 'simulator_script'
+  	parameters_file = 'params.in'
+  	results_file    = 'results.out'
+  	work_directory directory_tag
+	named = 'work_dir/dakota_tmp'
+        directory_save
+        replace
+        copy_files = 'templatedir/*'
+   # named 'workdir' file_save directory_save
+  	aprepro
+   deactivate active_set_vector evaluation_cache
+
+responses
+ id_responses = 'R1'   
+ num_response_functions = 2
+ response_descriptors =  'volume'  'total_area' 
+ no_gradients
+ no_hessians
+---------------------
+End DAKOTA input file
+---------------------
+
+Using Dakota input file 'templatedir/doe.in'
+Writing new restart file dakota.rst
+
+>>>>> Executing environment.
+
+>>>>> Running random_sampling iterator.
+
+NonD lhs Samples = 30 Seed (user-specified) = 52983
+
+------------------------------
+Begin       I1 Evaluation    1
+------------------------------
+Parameters for evaluation 1:
+                      1.6953845546e+00 radius
+                      3.8630101940e+00 height
+
+(Asynchronous job 1 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    2
+------------------------------
+Parameters for evaluation 2:
+                      2.9455646881e+00 radius
+                      4.5219801372e+00 height
+
+(Asynchronous job 2 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    3
+------------------------------
+Parameters for evaluation 3:
+                      5.8295911585e+00 radius
+                      2.8052003497e+00 height
+
+(Asynchronous job 3 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    4
+------------------------------
+Parameters for evaluation 4:
+                      2.4235295331e+00 radius
+                      8.6793610393e+00 height
+
+(Asynchronous job 4 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    5
+------------------------------
+Parameters for evaluation 5:
+                      3.5268460302e+00 radius
+                      2.2035187962e+00 height
+
+(Asynchronous job 5 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    6
+------------------------------
+Parameters for evaluation 6:
+                      1.3301417768e+00 radius
+                      9.6670276241e+00 height
+
+(Asynchronous job 6 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    7
+------------------------------
+Parameters for evaluation 7:
+                      4.6241724676e+00 radius
+                      1.4939704373e+00 height
+
+(Asynchronous job 7 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    8
+------------------------------
+Parameters for evaluation 8:
+                      7.3130257830e+00 radius
+                      4.7928531200e+00 height
+
+(Asynchronous job 8 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    9
+------------------------------
+Parameters for evaluation 9:
+                      3.7412347213e+00 radius
+                      3.3941980183e+00 height
+
+(Asynchronous job 9 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   10
+------------------------------
+Parameters for evaluation 10:
+                      9.0738814850e+00 radius
+                      9.0941427047e+00 height
+
+(Asynchronous job 10 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   11
+------------------------------
+Parameters for evaluation 11:
+                      6.3567947798e+00 radius
+                      6.9877213024e+00 height
+
+(Asynchronous job 11 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   12
+------------------------------
+Parameters for evaluation 12:
+                      9.7848116918e+00 radius
+                      2.1076362794e+00 height
+
+(Asynchronous job 12 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   13
+------------------------------
+Parameters for evaluation 13:
+                      8.6647542166e+00 radius
+                      3.4976982580e+00 height
+
+(Asynchronous job 13 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   14
+------------------------------
+Parameters for evaluation 14:
+                      7.8288364799e+00 radius
+                      1.6027119357e+00 height
+
+(Asynchronous job 14 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   15
+------------------------------
+Parameters for evaluation 15:
+                      9.5136111980e+00 radius
+                      6.1242564036e+00 height
+
+(Asynchronous job 15 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   16
+------------------------------
+Parameters for evaluation 16:
+                      5.4224114518e+00 radius
+                      5.8315089130e+00 height
+
+(Asynchronous job 16 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   17
+------------------------------
+Parameters for evaluation 17:
+                      8.2488464920e+00 radius
+                      8.0767023179e+00 height
+
+(Asynchronous job 17 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   18
+------------------------------
+Parameters for evaluation 18:
+                      4.0647344908e+00 radius
+                      7.7531189652e+00 height
+
+(Asynchronous job 18 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   19
+------------------------------
+Parameters for evaluation 19:
+                      3.1338560663e+00 radius
+                      5.7150539881e+00 height
+
+(Asynchronous job 19 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   20
+------------------------------
+Parameters for evaluation 20:
+                      5.0079602503e+00 radius
+                      7.3052487160e+00 height
+
+(Asynchronous job 20 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   21
+------------------------------
+Parameters for evaluation 21:
+                      6.9462402705e+00 radius
+                      7.0564779981e+00 height
+
+(Asynchronous job 21 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   22
+------------------------------
+Parameters for evaluation 22:
+                      5.5589252947e+00 radius
+                      5.1010481706e+00 height
+
+(Asynchronous job 22 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   23
+------------------------------
+Parameters for evaluation 23:
+                      2.6337697011e+00 radius
+                      1.2537520523e+00 height
+
+(Asynchronous job 23 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   24
+------------------------------
+Parameters for evaluation 24:
+                      7.1089714400e+00 radius
+                      9.8581534870e+00 height
+
+(Asynchronous job 24 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   25
+------------------------------
+Parameters for evaluation 25:
+                      6.4195579748e+00 radius
+                      9.1197825389e+00 height
+
+(Asynchronous job 25 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   26
+------------------------------
+Parameters for evaluation 26:
+                      2.1007556786e+00 radius
+                      6.6517580623e+00 height
+
+(Asynchronous job 26 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   27
+------------------------------
+Parameters for evaluation 27:
+                      9.1672342808e+00 radius
+                      8.2497028732e+00 height
+
+(Asynchronous job 27 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   28
+------------------------------
+Parameters for evaluation 28:
+                      8.1308072509e+00 radius
+                      4.0966387601e+00 height
+
+(Asynchronous job 28 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   29
+------------------------------
+Parameters for evaluation 29:
+                      1.0724989741e+00 radius
+                      5.3627525481e+00 height
+
+(Asynchronous job 29 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   30
+------------------------------
+Parameters for evaluation 30:
+                      4.5988024069e+00 radius
+                      2.7899573788e+00 height
+
+(Asynchronous job 30 added to I1 queue)
+
+Blocking synchronize of 30 asynchronous I1 evaluations
+First pass: initiating 10 local asynchronous jobs
+Initiating I1 evaluation 1
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 2
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 3
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 4
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 5
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 6
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 7
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 8
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 9
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 10
+nonblocking fork: simulator_script params.in results.out
+Second pass: scheduling 20 remaining local asynchronous jobs
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 0...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:38:47+0000
+SwiftScript trace: 0, radius:1.695385,height:3.863010
+
+10 Cases in Simulation
+
+SwiftScript trace: 1, radius:9.073881,height:9.094143
+SwiftScript trace: 8, radius:7.313026,height:4.792853
+SwiftScript trace: 9, radius:3.741235,height:3.394198
+SwiftScript trace: 2, radius:2.945565,height:4.521980
+SwiftScript trace: 7, radius:4.624172,height:1.493970
+SwiftScript trace: 6, radius:1.330142,height:9.667028
+SwiftScript trace: 5, radius:3.526846,height:2.203519
+SwiftScript trace: 4, radius:2.423530,height:8.679361
+SwiftScript trace: 3, radius:5.829591,height:2.805200
+Progress: Mon, 04 Sep 2017 20:38:48+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:38:49+0000  Submitted:7  Active:3
+Progress: Mon, 04 Sep 2017 20:38:56+0000  Submitted:7  Active:2  Stage out:1
+Progress: Mon, 04 Sep 2017 20:38:57+0000  Stage in:1  Submitted:6  Active:2  Finished successfully:1
+Progress: Mon, 04 Sep 2017 20:38:58+0000  Stage in:2  Submitted:4  Active:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:38:59+0000  Stage in:1  Submitted:4  Active:2  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:00+0000  Submitted:4  Active:3  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:04+0000  Stage in:1  Submitted:3  Active:2  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:39:06+0000  Stage in:1  Submitted:2  Active:2  Finished successfully:5
+Progress: Mon, 04 Sep 2017 20:39:07+0000  Stage in:1  Submitted:1  Active:2  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:09+0000  Submitted:1  Active:3  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:13+0000  Submitted:1  Active:2  Stage out:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:14+0000  Stage in:1  Active:2  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:39:15+0000  Active:2  Finished successfully:8
+Progress: Mon, 04 Sep 2017 20:39:16+0000  Active:1  Stage out:1  Finished successfully:8
+Progress: Mon, 04 Sep 2017 20:39:17+0000  Active:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:39:23+0000  Stage in:1  Finished successfully:10
+Final status: Mon, 04 Sep 2017 20:39:25+0000  Finished successfully:11
+
+I1 evaluation 1 has completed
+Initiating I1 evaluation 11
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 2 has completed
+Initiating I1 evaluation 12
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 3 has completed
+Initiating I1 evaluation 13
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 9 has completed
+Initiating I1 evaluation 14
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 8 has completed
+Initiating I1 evaluation 15
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 4 has completed
+Initiating I1 evaluation 16
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 5 has completed
+I1 evaluation 6 has completed
+I1 evaluation 7 has completed
+I1 evaluation 10 has completed
+Initiating I1 evaluation 17
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 18
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 19
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 20
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 1...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:39:32+0000
+
+10 Cases in Simulation
+
+SwiftScript trace: 1, radius:9.784812,height:2.107636
+SwiftScript trace: 0, radius:6.356795,height:6.987721
+SwiftScript trace: 3, radius:7.828836,height:1.602712
+SwiftScript trace: 4, radius:9.513611,height:6.124256
+SwiftScript trace: 2, radius:8.664754,height:3.497698
+SwiftScript trace: 5, radius:5.422411,height:5.831509
+SwiftScript trace: 6, radius:8.248846,height:8.076702
+SwiftScript trace: 7, radius:4.064734,height:7.753119
+SwiftScript trace: 8, radius:3.133856,height:5.715054
+SwiftScript trace: 9, radius:5.007960,height:7.305249
+Progress: Mon, 04 Sep 2017 20:39:33+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:39:34+0000  Submitted:7  Active:3
+Progress: Mon, 04 Sep 2017 20:39:41+0000  Submitted:7  Active:2  Stage out:1
+Progress: Mon, 04 Sep 2017 20:39:42+0000  Stage in:1  Submitted:6  Active:2  Finished successfully:1
+Progress: Mon, 04 Sep 2017 20:39:43+0000  Stage in:2  Submitted:4  Active:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:44+0000  Stage in:1  Submitted:4  Active:2  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:45+0000  Submitted:4  Active:3  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:49+0000  Submitted:4  Active:2  Stage out:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:50+0000  Stage in:1  Submitted:3  Active:2  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:39:51+0000  Stage in:2  Submitted:2  Active:1  Finished successfully:5
+Progress: Mon, 04 Sep 2017 20:39:52+0000  Stage in:2  Submitted:1  Active:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:53+0000  Stage in:1  Submitted:1  Active:2  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:54+0000  Submitted:1  Active:3  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:57+0000  Stage in:1  Active:2  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:39:59+0000  Active:3  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:40:00+0000  Active:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:40:04+0000  Stage out:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:40:05+0000  Stage in:1  Finished successfully:10
+Final status: Mon, 04 Sep 2017 20:40:07+0000  Finished successfully:11
+
+I1 evaluation 13 has completed
+Initiating I1 evaluation 21
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 11 has completed
+Initiating I1 evaluation 22
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 12 has completed
+Initiating I1 evaluation 23
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 14 has completed
+Initiating I1 evaluation 24
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 15 has completed
+Initiating I1 evaluation 25
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 16 has completed
+Initiating I1 evaluation 26
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 19 has completed
+Initiating I1 evaluation 27
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 17 has completed
+Initiating I1 evaluation 28
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 18 has completed
+Initiating I1 evaluation 29
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 20 has completed
+Initiating I1 evaluation 30
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 2...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:40:12+0000
+SwiftScript trace: 0, radius:6.946240,height:7.056478
+SwiftScript trace: 1, radius:5.558925,height:5.101048
+SwiftScript trace: 2, radius:2.633770,height:1.253752
+SwiftScript trace: 3, radius:7.108971,height:9.858153
+SwiftScript trace: 4, radius:6.419558,height:9.119783
+SwiftScript trace: 6, radius:9.167234,height:8.249703
+SwiftScript trace: 7, radius:8.130807,height:4.096639
+SwiftScript trace: 8, radius:1.072499,height:5.362753
+SwiftScript trace: 9, radius:4.598802,height:2.789957
+SwiftScript trace: 5, radius:2.100756,height:6.651758
+
+10 Cases in Simulation
+
+Progress: Mon, 04 Sep 2017 20:40:13+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:40:14+0000  Submitted:7  Active:3
+Starting to Stream...
+Running doe Analysis
+Running batch deamon
+
+Dakota version 6.5 released Dec  7 2016.
+Repository revision f928f89 (2016-11-10) built Dec  7 2016 15:24:52.
+Running serial Dakota executable in serial mode.
+Start time: Mon Sep  4 20:38:44 2017
+
+-----------------------
+Begin DAKOTA input file
+templatedir/doe.in
+-----------------------
+
+environment
+    	tabular_data
+        tabular_data_file = 'out.dat'
+#        freeform
+	custom_annotated header eval_id # no interface column
+        method_pointer = 'DACE'
+
+method
+ id_method = 'DACE'                              
+ model_pointer = 'DACE_M'     
+ sampling
+ sample_type lhs
+ seed = 52983
+ samples = 30
+
+model                                                 
+ id_model = 'DACE_M'                             
+ single                                                   
+ variables_pointer = 'V1' 
+ interface_pointer = 'I1'                     
+ responses_pointer = 'R1' 
+
+variables
+ id_variables = 'V1'
+ 
+ descriptors  'radius' 'height'
+ 
+ #discrete_design_set 
+ #real = 2
+ #num_set_values =  10 10
+ #set_values =  1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0
+ 
+ uniform_uncertain = 2
+ upper_bounds    10 10   
+ lower_bounds    1 1
+
+interface
+ id_interface = 'I1'  
+	fork
+	asynchronous 
+	  evaluation_concurrency = 10
+	  local_evaluation_scheduling dynamic 
+# When using work_directory, the analysis_drivers may be given by:
+# 1) an absolute path, 2) located in (or relative to) the startup directory alongside the Dakota input file, 3) in the list of template files linked or copied, 4) or on the $PATH (Path% on Windows).
+  	analysis_driver = 'simulator_script'
+  	parameters_file = 'params.in'
+  	results_file    = 'results.out'
+  	work_directory directory_tag
+	named = 'work_dir/dakota_tmp'
+        directory_save
+        replace
+        copy_files = 'templatedir/*'
+   # named 'workdir' file_save directory_save
+  	aprepro
+   deactivate active_set_vector evaluation_cache
+
+responses
+ id_responses = 'R1'   
+ num_response_functions = 2
+ response_descriptors =  'volume'  'total_area' 
+ no_gradients
+ no_hessians
+---------------------
+End DAKOTA input file
+---------------------
+
+Using Dakota input file 'templatedir/doe.in'
+Writing new restart file dakota.rst
+
+>>>>> Executing environment.
+
+>>>>> Running random_sampling iterator.
+
+NonD lhs Samples = 30 Seed (user-specified) = 52983
+
+------------------------------
+Begin       I1 Evaluation    1
+------------------------------
+Parameters for evaluation 1:
+                      1.6953845546e+00 radius
+                      3.8630101940e+00 height
+
+(Asynchronous job 1 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    2
+------------------------------
+Parameters for evaluation 2:
+                      2.9455646881e+00 radius
+                      4.5219801372e+00 height
+
+(Asynchronous job 2 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    3
+------------------------------
+Parameters for evaluation 3:
+                      5.8295911585e+00 radius
+                      2.8052003497e+00 height
+
+(Asynchronous job 3 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    4
+------------------------------
+Parameters for evaluation 4:
+                      2.4235295331e+00 radius
+                      8.6793610393e+00 height
+
+(Asynchronous job 4 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    5
+------------------------------
+Parameters for evaluation 5:
+                      3.5268460302e+00 radius
+                      2.2035187962e+00 height
+
+(Asynchronous job 5 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    6
+------------------------------
+Parameters for evaluation 6:
+                      1.3301417768e+00 radius
+                      9.6670276241e+00 height
+
+(Asynchronous job 6 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    7
+------------------------------
+Parameters for evaluation 7:
+                      4.6241724676e+00 radius
+                      1.4939704373e+00 height
+
+(Asynchronous job 7 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    8
+------------------------------
+Parameters for evaluation 8:
+                      7.3130257830e+00 radius
+                      4.7928531200e+00 height
+
+(Asynchronous job 8 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation    9
+------------------------------
+Parameters for evaluation 9:
+                      3.7412347213e+00 radius
+                      3.3941980183e+00 height
+
+(Asynchronous job 9 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   10
+------------------------------
+Parameters for evaluation 10:
+                      9.0738814850e+00 radius
+                      9.0941427047e+00 height
+
+(Asynchronous job 10 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   11
+------------------------------
+Parameters for evaluation 11:
+                      6.3567947798e+00 radius
+                      6.9877213024e+00 height
+
+(Asynchronous job 11 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   12
+------------------------------
+Parameters for evaluation 12:
+                      9.7848116918e+00 radius
+                      2.1076362794e+00 height
+
+(Asynchronous job 12 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   13
+------------------------------
+Parameters for evaluation 13:
+                      8.6647542166e+00 radius
+                      3.4976982580e+00 height
+
+(Asynchronous job 13 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   14
+------------------------------
+Parameters for evaluation 14:
+                      7.8288364799e+00 radius
+                      1.6027119357e+00 height
+
+(Asynchronous job 14 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   15
+------------------------------
+Parameters for evaluation 15:
+                      9.5136111980e+00 radius
+                      6.1242564036e+00 height
+
+(Asynchronous job 15 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   16
+------------------------------
+Parameters for evaluation 16:
+                      5.4224114518e+00 radius
+                      5.8315089130e+00 height
+
+(Asynchronous job 16 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   17
+------------------------------
+Parameters for evaluation 17:
+                      8.2488464920e+00 radius
+                      8.0767023179e+00 height
+
+(Asynchronous job 17 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   18
+------------------------------
+Parameters for evaluation 18:
+                      4.0647344908e+00 radius
+                      7.7531189652e+00 height
+
+(Asynchronous job 18 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   19
+------------------------------
+Parameters for evaluation 19:
+                      3.1338560663e+00 radius
+                      5.7150539881e+00 height
+
+(Asynchronous job 19 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   20
+------------------------------
+Parameters for evaluation 20:
+                      5.0079602503e+00 radius
+                      7.3052487160e+00 height
+
+(Asynchronous job 20 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   21
+------------------------------
+Parameters for evaluation 21:
+                      6.9462402705e+00 radius
+                      7.0564779981e+00 height
+
+(Asynchronous job 21 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   22
+------------------------------
+Parameters for evaluation 22:
+                      5.5589252947e+00 radius
+                      5.1010481706e+00 height
+
+(Asynchronous job 22 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   23
+------------------------------
+Parameters for evaluation 23:
+                      2.6337697011e+00 radius
+                      1.2537520523e+00 height
+
+(Asynchronous job 23 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   24
+------------------------------
+Parameters for evaluation 24:
+                      7.1089714400e+00 radius
+                      9.8581534870e+00 height
+
+(Asynchronous job 24 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   25
+------------------------------
+Parameters for evaluation 25:
+                      6.4195579748e+00 radius
+                      9.1197825389e+00 height
+
+(Asynchronous job 25 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   26
+------------------------------
+Parameters for evaluation 26:
+                      2.1007556786e+00 radius
+                      6.6517580623e+00 height
+
+(Asynchronous job 26 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   27
+------------------------------
+Parameters for evaluation 27:
+                      9.1672342808e+00 radius
+                      8.2497028732e+00 height
+
+(Asynchronous job 27 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   28
+------------------------------
+Parameters for evaluation 28:
+                      8.1308072509e+00 radius
+                      4.0966387601e+00 height
+
+(Asynchronous job 28 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   29
+------------------------------
+Parameters for evaluation 29:
+                      1.0724989741e+00 radius
+                      5.3627525481e+00 height
+
+(Asynchronous job 29 added to I1 queue)
+
+------------------------------
+Begin       I1 Evaluation   30
+------------------------------
+Parameters for evaluation 30:
+                      4.5988024069e+00 radius
+                      2.7899573788e+00 height
+
+(Asynchronous job 30 added to I1 queue)
+
+Blocking synchronize of 30 asynchronous I1 evaluations
+First pass: initiating 10 local asynchronous jobs
+Initiating I1 evaluation 1
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 2
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 3
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 4
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 5
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 6
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 7
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 8
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 9
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 10
+nonblocking fork: simulator_script params.in results.out
+Second pass: scheduling 20 remaining local asynchronous jobs
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 0...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:38:47+0000
+SwiftScript trace: 0, radius:1.695385,height:3.863010
+
+10 Cases in Simulation
+
+SwiftScript trace: 1, radius:9.073881,height:9.094143
+SwiftScript trace: 8, radius:7.313026,height:4.792853
+SwiftScript trace: 9, radius:3.741235,height:3.394198
+SwiftScript trace: 2, radius:2.945565,height:4.521980
+SwiftScript trace: 7, radius:4.624172,height:1.493970
+SwiftScript trace: 6, radius:1.330142,height:9.667028
+SwiftScript trace: 5, radius:3.526846,height:2.203519
+SwiftScript trace: 4, radius:2.423530,height:8.679361
+SwiftScript trace: 3, radius:5.829591,height:2.805200
+Progress: Mon, 04 Sep 2017 20:38:48+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:38:49+0000  Submitted:7  Active:3
+Progress: Mon, 04 Sep 2017 20:38:56+0000  Submitted:7  Active:2  Stage out:1
+Progress: Mon, 04 Sep 2017 20:38:57+0000  Stage in:1  Submitted:6  Active:2  Finished successfully:1
+Progress: Mon, 04 Sep 2017 20:38:58+0000  Stage in:2  Submitted:4  Active:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:38:59+0000  Stage in:1  Submitted:4  Active:2  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:00+0000  Submitted:4  Active:3  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:04+0000  Stage in:1  Submitted:3  Active:2  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:39:06+0000  Stage in:1  Submitted:2  Active:2  Finished successfully:5
+Progress: Mon, 04 Sep 2017 20:39:07+0000  Stage in:1  Submitted:1  Active:2  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:09+0000  Submitted:1  Active:3  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:13+0000  Submitted:1  Active:2  Stage out:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:14+0000  Stage in:1  Active:2  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:39:15+0000  Active:2  Finished successfully:8
+Progress: Mon, 04 Sep 2017 20:39:16+0000  Active:1  Stage out:1  Finished successfully:8
+Progress: Mon, 04 Sep 2017 20:39:17+0000  Active:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:39:23+0000  Stage in:1  Finished successfully:10
+Final status: Mon, 04 Sep 2017 20:39:25+0000  Finished successfully:11
+
+I1 evaluation 1 has completed
+Initiating I1 evaluation 11
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 2 has completed
+Initiating I1 evaluation 12
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 3 has completed
+Initiating I1 evaluation 13
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 9 has completed
+Initiating I1 evaluation 14
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 8 has completed
+Initiating I1 evaluation 15
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 4 has completed
+Initiating I1 evaluation 16
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 5 has completed
+I1 evaluation 6 has completed
+I1 evaluation 7 has completed
+I1 evaluation 10 has completed
+Initiating I1 evaluation 17
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 18
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 19
+nonblocking fork: simulator_script params.in results.out
+Initiating I1 evaluation 20
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 1...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:39:32+0000
+
+10 Cases in Simulation
+
+SwiftScript trace: 1, radius:9.784812,height:2.107636
+SwiftScript trace: 0, radius:6.356795,height:6.987721
+SwiftScript trace: 3, radius:7.828836,height:1.602712
+SwiftScript trace: 4, radius:9.513611,height:6.124256
+SwiftScript trace: 2, radius:8.664754,height:3.497698
+SwiftScript trace: 5, radius:5.422411,height:5.831509
+SwiftScript trace: 6, radius:8.248846,height:8.076702
+SwiftScript trace: 7, radius:4.064734,height:7.753119
+SwiftScript trace: 8, radius:3.133856,height:5.715054
+SwiftScript trace: 9, radius:5.007960,height:7.305249
+Progress: Mon, 04 Sep 2017 20:39:33+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:39:34+0000  Submitted:7  Active:3
+Progress: Mon, 04 Sep 2017 20:39:41+0000  Submitted:7  Active:2  Stage out:1
+Progress: Mon, 04 Sep 2017 20:39:42+0000  Stage in:1  Submitted:6  Active:2  Finished successfully:1
+Progress: Mon, 04 Sep 2017 20:39:43+0000  Stage in:2  Submitted:4  Active:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:44+0000  Stage in:1  Submitted:4  Active:2  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:45+0000  Submitted:4  Active:3  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:49+0000  Submitted:4  Active:2  Stage out:1  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:39:50+0000  Stage in:1  Submitted:3  Active:2  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:39:51+0000  Stage in:2  Submitted:2  Active:1  Finished successfully:5
+Progress: Mon, 04 Sep 2017 20:39:52+0000  Stage in:2  Submitted:1  Active:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:53+0000  Stage in:1  Submitted:1  Active:2  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:54+0000  Submitted:1  Active:3  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:39:57+0000  Stage in:1  Active:2  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:39:59+0000  Active:3  Finished successfully:7
+Progress: Mon, 04 Sep 2017 20:40:00+0000  Active:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:40:04+0000  Stage out:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:40:05+0000  Stage in:1  Finished successfully:10
+Final status: Mon, 04 Sep 2017 20:40:07+0000  Finished successfully:11
+
+I1 evaluation 13 has completed
+Initiating I1 evaluation 21
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 11 has completed
+Initiating I1 evaluation 22
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 12 has completed
+Initiating I1 evaluation 23
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 14 has completed
+Initiating I1 evaluation 24
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 15 has completed
+Initiating I1 evaluation 25
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 16 has completed
+Initiating I1 evaluation 26
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 19 has completed
+Initiating I1 evaluation 27
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 17 has completed
+Initiating I1 evaluation 28
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 18 has completed
+Initiating I1 evaluation 29
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+I1 evaluation 20 has completed
+Initiating I1 evaluation 30
+nonblocking fork: simulator_script params.in results.out
+Waiting on completed jobs
+Batch Concurrency Met...
+
+Running Batch 2...
+
+Swift trunk git-rev: 04208acc2a9af9ea900ae5c4a1d01bcc93ac07d2 heads/master 6744
+RunID: run001
+Warning: The @ syntax for function invocation is deprecated
+Progress: Mon, 04 Sep 2017 20:40:12+0000
+SwiftScript trace: 0, radius:6.946240,height:7.056478
+SwiftScript trace: 1, radius:5.558925,height:5.101048
+SwiftScript trace: 2, radius:2.633770,height:1.253752
+SwiftScript trace: 3, radius:7.108971,height:9.858153
+SwiftScript trace: 4, radius:6.419558,height:9.119783
+SwiftScript trace: 6, radius:9.167234,height:8.249703
+SwiftScript trace: 7, radius:8.130807,height:4.096639
+SwiftScript trace: 8, radius:1.072499,height:5.362753
+SwiftScript trace: 9, radius:4.598802,height:2.789957
+SwiftScript trace: 5, radius:2.100756,height:6.651758
+
+10 Cases in Simulation
+
+Progress: Mon, 04 Sep 2017 20:40:13+0000  Stage in:3  Submitted:7
+Progress: Mon, 04 Sep 2017 20:40:14+0000  Submitted:7  Active:3
+Progress: Mon, 04 Sep 2017 20:40:21+0000  Stage in:1  Submitted:6  Active:2  Finished successfully:1
+Progress: Mon, 04 Sep 2017 20:40:22+0000  Stage in:3  Submitted:4  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:40:23+0000  Submitted:4  Active:3  Finished successfully:3
+Progress: Mon, 04 Sep 2017 20:40:31+0000  Stage in:1  Submitted:3  Active:2  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:40:32+0000  Stage in:1  Submitted:3  Active:1  Stage out:1  Finished successfully:4
+Progress: Mon, 04 Sep 2017 20:40:33+0000  Stage in:2  Submitted:1  Active:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:40:34+0000  Stage in:1  Submitted:1  Active:2  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:40:35+0000  Submitted:1  Active:3  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:40:39+0000  Submitted:1  Active:2  Stage out:1  Finished successfully:6
+Progress: Mon, 04 Sep 2017 20:40:40+0000  Stage in:1  Active:1  Finished successfully:8
+Progress: Mon, 04 Sep 2017 20:40:41+0000  Active:1  Finished successfully:9
+Progress: Mon, 04 Sep 2017 20:40:46+0000  Stage in:1  Finished successfully:10
+Final status: Mon, 04 Sep 2017 20:40:49+0000  Finished successfully:11
+
+I1 evaluation 21 has completed
+Waiting on completed jobs
+I1 evaluation 22 has completed
+Waiting on completed jobs
+I1 evaluation 23 has completed
+Waiting on completed jobs
+I1 evaluation 24 has completed
+Waiting on completed jobs
+I1 evaluation 26 has completed
+Waiting on completed jobs
+I1 evaluation 25 has completed
+Waiting on completed jobs
+I1 evaluation 27 has completed
+Waiting on completed jobs
+I1 evaluation 30 has completed
+Waiting on completed jobs
+I1 evaluation 28 has completed
+Waiting on completed jobs
+I1 evaluation 29 has completed
+
+Active response data for I1 evaluation 1:
+Active set vector = { 1 1 }
+                      1.1627627842e+01 volume
+                      3.1499493322e+01 total_area
+
+
+Active response data for I1 evaluation 2:
+Active set vector = { 1 1 }
+                      4.1086058175e+01 volume
+                      7.7197607608e+01 total_area
+
+
+Active response data for I1 evaluation 3:
+Active set vector = { 1 1 }
+                      9.9831735317e+01 volume
+                      2.2524638502e+02 total_area
+
+
+Active response data for I1 evaluation 4:
+Active set vector = { 1 1 }
+                      5.3384253044e+01 volume
+                      8.7062408421e+01 total_area
+
+
+Active response data for I1 evaluation 5:
+Active set vector = { 1 1 }
+                      2.8702413099e+01 volume
+                      8.5154322858e+01 total_area
+
+
+Active response data for I1 evaluation 6:
+Active set vector = { 1 1 }
+                      1.7910908202e+01 volume
+                      4.6335191426e+01 total_area
+
+
+Active response data for I1 evaluation 7:
+Active set vector = { 1 1 }
+                      3.3453260618e+01 volume
+                      1.3777207255e+02 total_area
+
+
+Active response data for I1 evaluation 8:
+Active set vector = { 1 1 }
+                      2.6842129174e+02 volume
+                      3.6889537678e+02 total_area
+
+
+Active response data for I1 evaluation 9:
+Active set vector = { 1 1 }
+                      4.9750307385e+01 volume
+                      1.0334458063e+02 total_area
+
+
+Active response data for I1 evaluation 10:
+Active set vector = { 1 1 }
+                      7.8410921119e+02 volume
+                      6.2487884841e+02 total_area
+
+
+Active response data for I1 evaluation 11:
+Active set vector = { 1 1 }
+                      2.9569268898e+02 volume
+                      3.1559984468e+02 total_area
+
+
+Active response data for I1 evaluation 12:
+Active set vector = { 1 1 }
+                      2.1131445087e+02 volume
+                      6.0846672787e+02 total_area
+
+
+Active response data for I1 evaluation 13:
+Active set vector = { 1 1 }
+                      2.7499411581e+02 volume
+                      4.9022079889e+02 total_area
+
+
+Active response data for I1 evaluation 14:
+Active set vector = { 1 1 }
+                      1.0286757397e+02 volume
+                      3.8909412689e+02 total_area
+
+
+Active response data for I1 evaluation 15:
+Active set vector = { 1 1 }
+                      5.8046058297e+02 volume
+                      6.2250485946e+02 total_area
+
+
+Active response data for I1 evaluation 16:
+Active set vector = { 1 1 }
+                      1.7955373073e+02 volume
+                      2.2802021046e+02 total_area
+
+
+Active response data for I1 evaluation 17:
+Active set vector = { 1 1 }
+                      5.7550495707e+02 volume
+                      5.1293617122e+02 total_area
+
+
+Active response data for I1 evaluation 18:
+Active set vector = { 1 1 }
+                      1.3414340571e+02 volume
+                      1.6369217301e+02 total_area
+
+
+Active response data for I1 evaluation 19:
+Active set vector = { 1 1 }
+                      5.8776947788e+01 volume
+                      9.5024329346e+01 total_area
+
+
+Active response data for I1 evaluation 20:
+Active set vector = { 1 1 }
+                      1.9186039940e+02 volume
+                      2.1813689556e+02 total_area
+
+
+Active response data for I1 evaluation 21:
+Active set vector = { 1 1 }
+                      3.5654650114e+02 volume
+                      3.6766058591e+02 total_area
+
+
+Active response data for I1 evaluation 22:
+Active set vector = { 1 1 }
+                      1.6507057248e+02 volume
+                      2.2883992214e+02 total_area
+
+
+Active response data for I1 evaluation 23:
+Active set vector = { 1 1 }
+                      9.1074322630e+00 volume
+                      4.5928006146e+01 total_area
+
+
+Active response data for I1 evaluation 24:
+Active set vector = { 1 1 }
+                      5.2172020631e+02 volume
+                      4.3021024822e+02 total_area
+
+
+Active response data for I1 evaluation 25:
+Active set vector = { 1 1 }
+                      3.9357125955e+02 volume
+                      3.5438950565e+02 total_area
+
+
+Active response data for I1 evaluation 26:
+Active set vector = { 1 1 }
+                      3.0740879164e+01 volume
+                      5.9901435443e+01 total_area
+
+
+Active response data for I1 evaluation 27:
+Active set vector = { 1 1 }
+                      7.2601161032e+02 volume
+                      6.1919230950e+02 total_area
+
+
+Active response data for I1 evaluation 28:
+Active set vector = { 1 1 }
+                      2.8361135705e+02 volume
+                      4.4025400390e+02 total_area
+
+
+Active response data for I1 evaluation 29:
+Active set vector = { 1 1 }
+                      6.4596680992e+00 volume
+                      2.2040451359e+01 total_area
+
+
+Active response data for I1 evaluation 30:
+Active set vector = { 1 1 }
+                      6.1789623776e+01 volume
+                      1.4415384293e+02 total_area
+
+<<<<< Function evaluation summary (I1): 30 total (30 new, 0 duplicate)
+-----------------------------------------------------------------------------
+Statistics based on 30 samples:
+
+Sample moment statistics for each response function:
+                            Mean           Std Dev          Skewness          Kurtosis
+        volume  2.1826916767e+02  2.2343892719e+02  1.1930215174e+00  5.3613701811e-01
+    total_area  2.7145509119e+02  2.0087847369e+02  4.8812147208e-01 -1.0838816680e+00
+
+95% confidence intervals for each response function:
+                    LowerCI_Mean      UpperCI_Mean    LowerCI_StdDev    UpperCI_StdDev
+        volume  1.3483570107e+02  3.0170263427e+02  1.7794831066e+02  3.0037234145e+02
+    total_area  1.9644583637e+02  3.4646434601e+02  1.5998100909e+02  2.7004398137e+02
+
+Simple Correlation Matrix among all inputs and outputs:
+                   radius       height       volume   total_area 
+      radius  1.00000e+00 
+      height  6.14379e-02  1.00000e+00 
+      volume  7.90347e-01  5.34396e-01  1.00000e+00 
+  total_area  9.71923e-01  2.16656e-01  8.73736e-01  1.00000e+00 
+
+Partial Correlation Matrix between input and output:
+                   volume   total_area 
+      radius  8.97915e-01  9.83793e-01 
+      height  7.94500e-01  6.68253e-01 
+
+Simple Rank Correlation Matrix among all inputs and outputs:
+                   radius       height       volume   total_area 
+      radius  1.00000e+00 
+      height  7.45273e-02  1.00000e+00 
+      volume  8.85206e-01  4.75862e-01  1.00000e+00 
+  total_area  9.84427e-01  2.18242e-01  9.33259e-01  1.00000e+00 
+
+Partial Rank Correlation Matrix between input and output:
+                   volume   total_area 
+      radius  9.68836e-01  9.94843e-01 
+      height  8.83563e-01  8.26425e-01 
+
+-----------------------------------------------------------------------------
+
+<<<<< Iterator random_sampling completed.
+<<<<< Environment execution completed.
+DAKOTA execution time in seconds:
+  Total CPU        =    0.12127 [parent =   0.121268, child =      2e-06]
+  Total wall clock =     125.93
+This is the format of your plot grid:
+[ (1,1) x1,y1 ]  [ (1,2) x2,y1 ]
+[ (2,1) x1,y2 ]  [ (2,2) x2,y2 ]
+

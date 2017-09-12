@@ -1,0 +1,394 @@
+// CACHE ID 68c2e242-323e-4e98-8ba2-4e97c590350e-no-provenance
+import(sys)
+import(scheduler)
+import(swift)
+importStdlib(2)
+
+types(
+	xs:schema(
+    			xs:simpleType("file", xs:restriction("string"))
+    )
+)
+swift.field.dakota.file.array.int := swift:field("dakota", "file[int]")
+swift.field.swift.mapper.17040.string := swift:field("swift.mapper.17040", "string")
+swift.field.swift.mapper.17041.string := swift:field("swift.mapper.17041", "string")
+swift.field.kpiLocation.string := swift:field("kpiLocation", "string")
+swift.field.points.file := swift:field("points", "file")
+swift.field.swift.mapper.17042.string := swift:field("swift.mapper.17042", "string")
+swift.field.outdat.file := swift:field("outdat", "file")
+swift.field.workflow.file.array.int := swift:field("workflow", "file[int]")
+swift.field.const.float := swift:field("const", "float")
+swift.field.const.string := swift:field("const", "string")
+swift.field.swift.mapper.17003.string := swift:field("swift.mapper.17003", "string")
+swift.field.swift.mapper.17025.string := swift:field("swift.mapper.17025", "string")
+swift.field.const.boolean := swift:field("const", "boolean")
+swift.field.swift.mapper.17005.string := swift:field("swift.mapper.17005", "string")
+swift.field.outhtml.file := swift:field("outhtml", "file")
+swift.field.swift.mapper.17021.string := swift:field("swift.mapper.17021", "string")
+swift.field.swift.mapper.17043.string := swift:field("swift.mapper.17043", "string")
+swift.field.swift.mapper.17023.string := swift:field("swift.mapper.17023", "string")
+swift.field.samples.file := swift:field("samples", "file")
+swift.field.swiftconf.file := swift:field("swiftconf", "file")
+swift.field.perr.file := swift:field("perr", "file")
+swift.field.swift.mapper.17009.string := swift:field("swift.mapper.17009", "string")
+swift.field.params.file := swift:field("params", "file")
+swift.field.derr.file := swift:field("derr", "file")
+swift.field.swift.mapper.17014.string := swift:field("swift.mapper.17014", "string")
+swift.field.swift.mapper.17015.string := swift:field("swift.mapper.17015", "string")
+swift.field.swift.mapper.17038.string := swift:field("swift.mapper.17038", "string")
+swift.field.swift.mapper.17017.string := swift:field("swift.mapper.17017", "string")
+swift.field.swift.mapper.17012.string := swift:field("swift.mapper.17012", "string")
+swift.field.swift.mapper.17035.string := swift:field("swift.mapper.17035", "string")
+swift.field.workflowDir.string := swift:field("workflowDir", "string")
+swift.field.temp.int := swift:field("temp", "int")
+swift.field.swift.mapper.17019.string := swift:field("swift.mapper.17019", "string")
+swift.field.dout.file := swift:field("dout", "file")
+swift.field.const.int := swift:field("const", "int")
+swift.field.study.string := swift:field("study", "string")
+swift.field.pout.file := swift:field("pout", "file")
+swift.field.path.string := swift:field("path", "string")
+swift.string.17026 := swift:new(swift.field.const.string, value="study")
+swift.string.17007 := swift:new(swift.field.const.string, value="results/")
+swift.string.17020 := swift:new(swift.field.const.string, value="logs/prep.err")
+swift.string.17024 := swift:new(swift.field.const.string, value="logs/dakota.err")
+swift.string.17027 := swift:new(swift.field.const.string, value="moga")
+swift.string.17033 := swift:new(swift.field.const.string, value="points")
+swift.string.17004 := swift:new(swift.field.const.string, value="swift.conf")
+swift.string.17037 := swift:new(swift.field.const.string, value="results/doe.dat")
+swift.string.17032 := swift:new(swift.field.const.string, value="surr")
+swift.string.17006 := swift:new(swift.field.const.string, value="dat")
+swift.string.17031 := swift:new(swift.field.const.string, value="PWD")
+swift.string.17002 := swift:new(swift.field.const.string, value="params.run")
+swift.string.17011 := swift:new(swift.field.const.string, value=".html")
+swift.string.17022 := swift:new(swift.field.const.string, value="logs/dakota.out")
+swift.string.17016 := swift:new(swift.field.const.string, value="dakota")
+swift.string.17028 := swift:new(swift.field.const.string, value="workflow")
+swift.string.17029 := swift:new(swift.field.const.string, value="kpi")
+swift.string.17010 := swift:new(swift.field.const.string, value="iter")
+swift.string.17030 := swift:new(swift.field.const.string, value="models/mexdex/kpi.json")
+swift.string.17018 := swift:new(swift.field.const.string, value="logs/prep.out")
+swift.string.17036 := swift:new(swift.field.const.string, value="samples")
+swift.string.17039 := swift:new(swift.field.const.string, value="soga_surr")
+swift.string.17000 := swift:new(swift.field.const.string, value="dakota/utils/prepInputs.sh")
+swift.string.17001 := swift:new(swift.field.const.string, value="templatedir/start_docker.sh")
+swift.string.17013 := swift:new(swift.field.const.string, value="dakota/utils/mapper.sh")
+swift.string.17008 := swift:new(swift.field.const.string, value=".dat")
+swift.string.17034 := swift:new(swift.field.const.string, value="points.dat")
+study := 
+			swift:new(swift.field.study.string, readCount=6, _defline=8)
+workflowDir := 
+			swift:new(swift.field.workflowDir.string, readCount=3, _defline=9)
+kpiLocation := 
+			swift:new(swift.field.kpiLocation.string, readCount=2, _defline=10)
+swift.mapper.17003 := 
+			swift:new(swift.field.swift.mapper.17003.string)
+params := 
+		swift:new(swift.field.params.file, readCount=1, _defline=12, input=true
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17003))
+		)
+swift.mapper.17005 := 
+			swift:new(swift.field.swift.mapper.17005.string)
+swiftconf := 
+		swift:new(swift.field.swiftconf.file, readCount=1, _defline=13, input=true
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17005))
+		)
+swift.mapper.17009 := 
+			swift:new(swift.field.swift.mapper.17009.string)
+outdat := 
+		swift:new(swift.field.outdat.file, _defline=14
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17009))
+		)
+swift.mapper.17012 := 
+			swift:new(swift.field.swift.mapper.17012.string)
+outhtml := 
+		swift:new(swift.field.outhtml.file, _defline=15
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17012))
+		)
+swift.mapper.17014 := 
+			swift:new(swift.field.swift.mapper.17014.string)
+workflow := 
+		swift:new(swift.field.workflow.file.array.int, readCount=1, _defline=17, input=true
+			swift:mapping("Ext", swift:parameter("exec", swift.mapper.17014)
+			swift:parameter("root", swift:readVar(workflowDir)))
+		)
+swift.mapper.17015 := 
+			swift:new(swift.field.swift.mapper.17015.string)
+swift.mapper.17017 := 
+			swift:new(swift.field.swift.mapper.17017.string)
+dakota := 
+		swift:new(swift.field.dakota.file.array.int, readCount=1, _defline=18, input=true
+			swift:mapping("Ext", swift:parameter("exec", swift.mapper.17015)
+			swift:parameter("root", swift.mapper.17017))
+		)
+path := 
+			swift:new(swift.field.path.string, readCount=2, _defline=20)
+swift.mapper.17019 := 
+			swift:new(swift.field.swift.mapper.17019.string)
+pout := 
+		swift:new(swift.field.pout.file, _defline=31
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17019))
+		)
+swift.mapper.17021 := 
+			swift:new(swift.field.swift.mapper.17021.string)
+perr := 
+		swift:new(swift.field.perr.file, _defline=32
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17021))
+		)
+swift.mapper.17023 := 
+			swift:new(swift.field.swift.mapper.17023.string)
+dout := 
+		swift:new(swift.field.dout.file, _defline=33
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17023))
+		)
+swift.mapper.17025 := 
+			swift:new(swift.field.swift.mapper.17025.string)
+derr := 
+		swift:new(swift.field.derr.file, _defline=34
+			swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17025))
+		)
+
+runDakota := function(pout, perr, dout, derr, outdat, outhtml, study, workflowDir, kpiLocation, params, workflow, dakota, swiftconf, points, samples, path) {
+	swift:unitStart("PROCEDURE", name="runDakota", line=24, outputs="pout,perr,dout,derr,outdat,outhtml")
+	swift:waitFor(study, workflowDir, kpiLocation, params, workflow, dakota, swiftconf, points, samples, path)
+	k:tailcall(
+		swift:execute(
+			"runDakota",
+				swift:stageIn(params, workflow, dakota, swiftconf, points, samples)
+				swift:stageOut(pout, perr, dout, derr, outdat, outhtml)
+	  		swift:commands(
+	  				swift:command("bash", null, swiftscript:filename(#_line=25
+	  				pout
+	  			), swiftscript:filename(#_line=25
+	  				perr
+	  			), swift.string.17000, study, swiftscript:filename(#_line=25
+	  				params
+	  			), kpiLocation, workflowDir, swiftscript:filename(#_line=25
+	  				points
+	  			), swiftscript:filename(#_line=25
+	  				samples
+	  			))
+	  				swift:command("bash", null, swiftscript:filename(#_line=26
+	  				dout
+	  			), swiftscript:filename(#_line=26
+	  				derr
+	  			), swift.string.17001, study, swiftscript:filename(#_line=26
+	  				outdat
+	  			), swiftscript:filename(#_line=26
+	  				outhtml
+	  			), path)
+	  		)
+		)
+	)
+	swift:unitEnd("PROCEDURE", name="runDakota", line=24)}
+
+restartLog(name = k:concat(contextAttribute("SWIFT:SCRIPT_NAME"), "-", contextAttribute("SWIFT:RUN_ID"))) {
+	swift:mains(
+		swift:startProgressTicker()
+		uparallel(
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17003)
+				swift.string.17002
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17005)
+				swift.string.17004
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17009)
+				swiftscript:arg$string$string$(#_line=14
+					swift.string.17006, swiftscript:strcat(#_line=14
+						swift.string.17007, swift:readVar(study), swift.string.17008
+					)
+				)
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17012)
+				swiftscript:arg$string$string$(#_line=15
+					swift.string.17010, swiftscript:strcat(#_line=15
+						swift.string.17007, swift:readVar(study), swift.string.17011
+					)
+				)
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17014)
+				swift.string.17013
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17015)
+				swift.string.17013
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17017)
+				swift.string.17016
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17019)
+				swift.string.17018
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17021)
+				swift.string.17020
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17023)
+				swift.string.17022
+			)
+			swift:setFieldValue(
+				k:getAndDelete(swift.mapper.17025)
+				swift.string.17024
+			)
+			swift:setFieldValue(#_line=8
+				swift:readVar(study)
+				swiftscript:arg$string$string$(#_line=8
+					swift.string.17026, swift.string.17027
+				)
+			)
+			swift:setFieldValue(#_line=9
+				swift:readVar(workflowDir)
+				swiftscript:arg$string$string$(#_line=9
+					swift.string.17028, swift.string.17028
+				)
+			)
+			swift:setFieldValue(#_line=10
+				swift:readVar(kpiLocation)
+				swiftscript:arg$string$string$(#_line=10
+					swift.string.17029, swift.string.17030
+				)
+			)
+			swift:setFieldValue(#_line=20
+				swift:readVar(path)
+				swiftscript:getEnv(#_line=20
+					swift.string.17031
+				)
+			)
+			if (swift:getFieldValue(swiftop:eq(
+				swift:readVar(study)
+				swift.string.17032
+			))) {
+				swift:unitStart("CONDITION_BLOCK")
+
+				swift.mapper.17035 := 
+							swift:new(swift.field.swift.mapper.17035.string)
+				points := 
+						swift:new(swift.field.points.file, readCount=1, _defline=38, input=true
+							swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17035))
+						)
+				swift.mapper.17038 := 
+							swift:new(swift.field.swift.mapper.17038.string)
+				samples := 
+						swift:new(swift.field.samples.file, readCount=1, _defline=39, input=true
+							swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17038))
+						)
+				uparallel(
+					swift:partialClean(study, 1)
+					swift:setFieldValue(
+						k:getAndDelete(swift.mapper.17035)
+						swiftscript:arg$string$string$(#_line=38
+							swift.string.17033, swift.string.17034
+						)
+					)
+					swift:setFieldValue(
+						k:getAndDelete(swift.mapper.17038)
+						swiftscript:arg$string$string$(#_line=39
+							swift.string.17036, swift.string.17037
+						)
+					)
+					runDakota(#_line=40
+						k:getAndDelete(pout), k:getAndDelete(perr), k:getAndDelete(dout), k:getAndDelete(derr), k:getAndDelete(outdat), k:getAndDelete(outhtml)
+						swift:readVar(study), swift:readVar(workflowDir), swift:readVar(kpiLocation), swift:readVar(params), swift:readVar(workflow), swift:readVar(dakota), swift:readVar(swiftconf), swift:readVar(points), swift:readVar(samples), swift:readVar(path)
+					)
+				)
+				swift:cleanDataset(samples)
+				swift:cleanDataset(points)
+			}
+			else {
+				swift:unitStart("CONDITION_BLOCK")
+
+
+				if (swift:getFieldValue(swiftop:eq(
+					swift:readVar(study)
+					swift.string.17039
+				))) {
+					swift:unitStart("CONDITION_BLOCK")
+
+					swift.mapper.17040 := 
+								swift:new(swift.field.swift.mapper.17040.string)
+					points := 
+							swift:new(swift.field.points.file, readCount=1, _defline=44, input=true
+								swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17040))
+							)
+					swift.mapper.17041 := 
+								swift:new(swift.field.swift.mapper.17041.string)
+					samples := 
+							swift:new(swift.field.samples.file, readCount=1, _defline=45, input=true
+								swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17041))
+							)
+					uparallel(
+						swift:setFieldValue(
+							k:getAndDelete(swift.mapper.17040)
+							swift.string.17002
+						)
+						swift:setFieldValue(
+							k:getAndDelete(swift.mapper.17041)
+							swiftscript:arg$string$string$(#_line=45
+								swift.string.17036, swift.string.17037
+							)
+						)
+						runDakota(#_line=46
+							k:getAndDelete(pout), k:getAndDelete(perr), k:getAndDelete(dout), k:getAndDelete(derr), k:getAndDelete(outdat), k:getAndDelete(outhtml)
+							swift:readVar(study), swift:readVar(workflowDir), swift:readVar(kpiLocation), swift:readVar(params), swift:readVar(workflow), swift:readVar(dakota), swift:readVar(swiftconf), swift:readVar(points), swift:readVar(samples), swift:readVar(path)
+						)
+					)
+					swift:cleanDataset(samples)
+					swift:cleanDataset(points)
+				}
+				else {
+					swift:unitStart("CONDITION_BLOCK")
+
+					swift.mapper.17042 := 
+								swift:new(swift.field.swift.mapper.17042.string)
+					points := 
+							swift:new(swift.field.points.file, readCount=1, _defline=49, input=true
+								swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17042))
+							)
+					swift.mapper.17043 := 
+								swift:new(swift.field.swift.mapper.17043.string)
+					samples := 
+							swift:new(swift.field.samples.file, readCount=1, _defline=50, input=true
+								swift:mapping("SingleFileMapper", swift:parameter("file", swift.mapper.17043))
+							)
+					uparallel(
+						swift:setFieldValue(
+							k:getAndDelete(swift.mapper.17042)
+							swift.string.17002
+						)
+						swift:setFieldValue(
+							k:getAndDelete(swift.mapper.17043)
+							swift.string.17002
+						)
+						runDakota(#_line=51
+							k:getAndDelete(pout), k:getAndDelete(perr), k:getAndDelete(dout), k:getAndDelete(derr), k:getAndDelete(outdat), k:getAndDelete(outhtml)
+							swift:readVar(study), swift:readVar(workflowDir), swift:readVar(kpiLocation), swift:readVar(params), swift:readVar(workflow), swift:readVar(dakota), swift:readVar(swiftconf), swift:readVar(points), swift:readVar(samples), swift:readVar(path)
+						)
+					)
+					swift:cleanDataset(samples)
+					swift:cleanDataset(points)
+				}
+
+			}
+		)
+		swift:stopProgressTicker()
+	)
+}
+
+swift:cleanDataset(swiftconf)
+swift:cleanDataset(perr)
+swift:cleanDataset(dakota)
+swift:cleanDataset(workflow)
+swift:cleanDataset(dout)
+swift:cleanDataset(pout)
+swift:cleanDataset(params)
+swift:cleanDataset(derr)
+swift:cleanDataset(outhtml)
+swift:cleanDataset(outdat)
+swift:cleanDataset(shutdown=true)

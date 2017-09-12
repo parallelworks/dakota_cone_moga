@@ -1,0 +1,13 @@
+#!/bin/bash
+
+file=stream/dakota
+
+# kill existing netcat processes
+kill -9 $(ps -x | grep 4444 | awk '{print $1}' | tr '\n' ' ') > /dev/null 2>&1
+kill -9 $(ps -x | grep _stdout_2.txt | awk '{print $1}' |  tr '\n' ' ') > /dev/null 2>&1
+
+rm stream -R > /dev/null 2>&1
+mkdir stream -p
+sh -c "nc -vv -l 4444 0<&- 1>$file &"
+
+tail -f $file | awk '{print "stream/dakota " $0; fflush("");}' &

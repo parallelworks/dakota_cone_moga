@@ -1,0 +1,5 @@
+in:radius,in:height,out:lateral_area,out:volume,out:total_area,img:cone
+1,1,4.44288293816,1.0471975512,7.58447559175,http://52.201.35.173:8080/preview/4_cone/2_workflow/results/case_0/out_cone.png
+6,1,114.657372472,37.6991118431,227.754708002,http://52.201.35.173:8080/preview/4_cone/2_workflow/results/case_1/out_cone.png
+1,6,19.1095620787,6.28318530718,22.2511547323,http://52.201.35.173:8080/preview/4_cone/2_workflow/results/case_2/out_cone.png
+6,6,159.943785774,226.194671058,273.041121303,http://52.201.35.173:8080/preview/4_cone/2_workflow/results/case_3/out_cone.png
