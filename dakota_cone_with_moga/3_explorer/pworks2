@@ -1,0 +1,375 @@
+#!/bin/bash
+
+ProgName=$(basename $0)
+  
+sub_help(){
+    echo ""
+    echo "Usage: $ProgName <subcommand> [options]"
+    echo ""
+    echo "Subcommands:"
+    echo "    cluster <numworkers>"
+    echo "    deploy  <apikey> <workflowdir> <workflowname>"
+    echo "    genxml  <params> <outxml> [paramsunits]"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$ProgName <subcommand>"
+    echo ""
+}
+
+sub_cluster(){
+
+if [[ $# -eq 0 ]]; then
+    echo ""
+    echo "Usage: cluster <numworkers>"
+    echo ""
+    echo "1 argument required for starting cluster and $# provided"
+    echo ""
+    exit 1
+fi
+
+workers=$1
+
+echo ""
+echo "Starting local cluster with $workers workers"
+echo ""
+sleep 1
+
+tasksPerWorker=1
+
+serviceport=4090
+localport=4091
+
+# kill existing coaster services and workflows on specified port
+kill -9 $(netstat -tulpn | grep $serviceport | awk '{print $7}' | cut -d "/" -f1) > /dev/null 2>&1
+kill -9 $(netstat -tulpn | grep $localport | awk '{print $7}' | cut -d "/" -f1) > /dev/null 2>&1
+#kill $(ps -x | grep "/usr/bin/pw cluster" | awk '{print $1}' | tr '\n' ' ') 
+rm /tmp/cluster_logs -R > /dev/null 2>&1
+
+startWorker(){
+    
+    export WORKER_LOGGING_LEVEL=INFO
+    export ENABLE_WORKER_LOGGING=true
+    
+    while true;do
+        sleep 4
+        #echo "Starting Worker $1..."
+        worker.pl -c $tasksPerWorker http://localhost:$localport "local-worker-$1" /tmp/cluster_logs/workers > /dev/null 2>&1
+        #echo "Worker Exited. Checking if Coaster Service is Running..."
+        kill -0 $(netstat -tulpn | grep $serviceport | awk '{print $7}' | cut -d "/" -f1) > /dev.null 2>&1
+        ec=$?
+        if [ "$ec" == "0" ];then
+            :
+            # echo "Restarting Worker $1..."
+        elif [ "$ec" == "1" ];then
+            :
+            #echo "Coaster Service Closed."
+            exit 1
+        fi
+    done
+}
+
+for i in $(seq 1 $workers);do
+    startWorker $i &
+done
+
+# start the coaster service
+coaster-service -p $serviceport -localport $localport -stats -nosec -passive -logdir /tmp/cluster_logs/coasters
+
+}
+  
+sub_deploy(){
+
+if [[ $# -lt 3 ]]; then
+    echo ""
+    echo "Usage: deploy  <apikey> <workflowdir> <workflowname>"
+    echo ""
+    echo "3 arguments required for deployment and $# provided"
+    echo ""
+    exit 1
+fi
+
+python - <<EOF
+#!/usr/bin/python
+import requests,sys,os,tarfile
+
+key="$1"
+wdir="$2"
+name="$3".lower()
+
+print ""
+print "Starting to Upload Workflow",name.upper(),"to Parallel Works..."
+print ""
+
+apiurl="https://go.parallel.works/api"
+
+# checking if valid API key
+req = requests.get(apiurl + "/account?key="+key)
+req.raise_for_status()
+try:
+    account=req.json()
+except:
+    print req.text
+    sys.exit(1)
+
+print "Username",account['info']['username'].upper(),"is Valid."
+print ""
+print "Proceeding with Upload..."
+
+def excludes_fn(name):
+    return "swift.conf" in name or "workflow.xml" in name or "points.dat" in name or "params.run" in name
+
+def make_tarfile(output_filename, source_dir):
+    with tarfile.open(output_filename, "w:gz") as tar:
+        tar.add(source_dir, arcname=os.path.basename(source_dir), exclude=excludes_fn)
+
+tmp_tar="/tmp/tmp.tgz"
+make_tarfile(tmp_tar,wdir)
+
+swift = None
+for file in os.listdir(wdir):
+    if file.endswith(".swift"):
+        swift = file
+        break
+        
+workflow_xml = ''
+for file in os.listdir(wdir):
+    if file.endswith(".xml"):
+        f = open(wdir+"/"+file,'r')
+        workflow_xml="\n".join(f.read().splitlines())
+        break
+
+if swift is None:
+    print "Error: No Swift Script Detected..."
+    sys.exit(1)
+    
+file = {'file': open(tmp_tar,'rb')}
+data = {
+    'workflow_name': name,
+    'swift_script': swift,
+    'workflow_xml': workflow_xml
+}
+req = requests.post(apiurl + "/workflows/upload?key="+key,data=data,files=file)
+req.raise_for_status()
+print req.text
+
+os.remove(tmp_tar)
+
+print ""
+print "Upload Complete"
+print ""
+print "Please make additional edits to the workflow on Parallel Works"
+#print "https://go.parallel.works/u/workflows/edit/<ID>"
+print ""
+EOF
+    
+}
+
+sub_genxml(){
+   
+if [[ $# -lt 2 ]]; then
+    echo ""
+    echo "Usage: genxml <params> <outxml> [paramsunits]"
+    echo ""
+    echo "2 arguments required for generating xml and $# provided"
+    echo ""
+    exit 1
+fi  
+
+python - <<EOF
+#!/usr/bin/python
+import sys,json,os,math
+import itertools as it
+
+print ""
+print "Generating Parallel Works XML Definition..."
+print ""
+
+paramsFile = "$1"
+xmlFile = "$2"
+
+def setOptionalSysArgs(args, paramDefaultValue, argNumber):
+    if len(args) >= (argNumber+1):
+        param = args[argNumber]
+    else:
+        param = paramDefaultValue
+    return param
+
+paramUnitsFile = setOptionalSysArgs(sys.argv, [], 3)
+
+def isInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def frange(a, b, inc):
+    if isInt(a) and isInt(b) and isInt(inc):
+        a = int(a)
+        b = int(b)
+        inc = int(inc)
+    else:
+        a = float(a)
+        b = float(b)
+        inc = float(inc)
+    x = [a]
+    for i in range(1, int(math.ceil(((b + inc) - a) / inc))):
+        x.append(a + i * inc)
+    return (str(e) for e in x)
+
+def expandVars(v, RangeDelimiter = ':'):
+    min = v.split(RangeDelimiter)[0]
+    max = v.split(RangeDelimiter)[1]
+    step = v.split(RangeDelimiter)[2]
+    v = ','.join(frange(min, max, step))
+    return v
+
+def readCases(params, namesdelimiter=";", valsdelimiter="_",paramsdelimiter = "\n", withParamType = True):
+    with open(params) as f:
+        content = f.read().split(paramsdelimiter)
+        if content[-1] == "\n":
+            del content[-1]
+
+    pvals = {}
+    pTypes = {}
+    for x in content:
+        if "null" not in x and x != "":
+            pname = x.split(namesdelimiter)[0]
+            if withParamType:
+                pType = x.split(namesdelimiter)[1]
+                pval = x.split(namesdelimiter)[2]
+            else:
+                pval = x.split(namesdelimiter)[1]
+            if valsdelimiter in pval:
+                pval = pval.split(valsdelimiter)
+            elif " " in pval:
+                pval = pval.split()
+            elif ":" in pval:
+                pval = expandVars(pval).split(",")
+            else:
+                pval = [pval]
+            pvals[pname] = pval
+            if withParamType:
+                pTypes[pname] = pType
+
+    varNames = sorted(pvals)
+    cases = [[{varName: val} for varName, val in zip(varNames, prod)] for prod in
+             it.product(*(pvals[varName] for varName in varNames))]
+    return cases, varNames, pTypes
+
+cases, _, paramTypes = readCases(paramsFile, paramsdelimiter="\n")
+
+# Read the parameters units from the paramUnitsFile file:
+
+def open_file(file_name, open_mode="r"):
+    if open_mode == "w":
+        if not os.path.exists(os.path.dirname(file_name)):
+            if os.path.dirname(file_name):
+                os.makedirs(os.path.dirname(file_name))
+    try:
+        file_pointer = open(file_name, open_mode)
+        return file_pointer
+    except IOError:
+        print("Error: cannot open file", file_name)
+        sys.exit(1)
+
+paramUnits = []
+if paramUnitsFile:
+    fp_jsonIn = open_file(paramUnitsFile)
+    paramUnits = json.load(fp_jsonIn)
+    fp_jsonIn.close()
+    print(paramUnits)
+
+def convertListOfDicts2Dict(listOfDicts):
+    result = {}
+    for d in listOfDicts:
+        result.update(d)
+    return result
+    
+def mergeParamTypesParamValsDict(paramTypes, paramVals):
+    paramsTypeVal = {}
+    for param in paramTypes:
+        paramsTypeVal[param] = {'value':paramVals[param], 'type':paramTypes[param]}
+    return paramsTypeVal
+
+def writeXMLPWfile(case, paramTypes, xmlFile, helpStr = 'Whitespace delimited or range/step (e.g. min:max:step)',
+                   paramUnits=[]):
+    """Write the input section of the xml file for generating input forms on the Parallel Works platform"""
+
+    paramVals = convertListOfDicts2Dict(case)
+    # sort the keys by parameter types:
+    paramsBytype = {}
+    paramsSortedBytype = sorted(paramTypes.items())
+    paramsTypeVal = mergeParamTypesParamValsDict(paramTypes, paramVals)
+
+    unitStr = ""
+    f = open_file(xmlFile, "w")
+
+    # Write the xml file header:
+    f.write("<tool id=\'test_params_forms\' name=\'test_params_forms\'>  \n"
+            "\t<command interpreter=\'swift\'>main.swift</command>     \n"
+            "\t<inputs>  \n")
+
+    paramTypes = set(paramTypes.values())
+    # Write the parameters of each type under a section
+    expanded = 'true'
+    for sectionName in paramTypes:
+        # Write the section header
+        # e.g.    <section name='design_space' type='section' title='Cyclone Geometry Parameter Space' expanded='true'>
+        f.write("\t\t<section name=\'" + sectionName + "\' type=\'section\' title='" +
+                sectionName.capitalize() +" Parameters\' expanded=\'" + expanded + "\'> \n")
+        expanded = 'false'
+        for paramName in paramsTypeVal:
+            paramDict = paramsTypeVal[paramName]
+            if paramUnits:
+                if paramUnits[paramName]:
+                    unitStr = " (" + paramUnits[paramName] + ")"
+                else:
+                    unitStr = ""
+            if paramDict['type'] == sectionName:
+                pVal = paramDict['value']
+                f.write("\t\t\t<param name=\'"+ paramName + "\' type=\'text\' value=\'" + str(pVal) +
+                        "\' label=\'" + paramName + unitStr +"\' help=\'" + helpStr + "\' width=\'33.3%\' argument=\'"
+                        + sectionName + "\'>\n")
+                f.write("\t\t\t</param>\n")
+        f.write("\t\t</section> \n")
+    f.write("\t</inputs> \n")
+    # add a default output
+    f.write("\t<outputs> \n")
+    f.write("\t\t<data name='result' format='txt' label='result.\${tool.name}'> \n")
+    f.write("\t\t</data> \n")
+    f.write("\t</outputs> \n")
+    f.write("</tool> \n")
+    f.close()
+    return paramsBytype
+
+writeXMLPWfile(cases[0],paramTypes,xmlFile, paramUnits=paramUnits)
+
+print "Generation complete"
+#print ""
+#f = open(xmlFile,'r')
+#print f.read()
+#f.close()
+print ""
+print "Please check",xmlFile,"before deploying to Parallel Works"
+print ""
+EOF
+
+}
+
+
+subcommand=$1
+case $subcommand in
+    "")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$ProgName --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
